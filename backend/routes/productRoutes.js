@@ -8,7 +8,11 @@ const {
     getProductById,
     updateProduct,
     deleteProduct,
+
 } = require("../controllers/productController");
+
+const protect = require("../middleware/authMiddleware");
+
 
 router.get(
     "/",
