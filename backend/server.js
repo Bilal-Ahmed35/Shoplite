@@ -4,6 +4,8 @@ const dns = require("dns");
 dns.setServers(["1.1.1.1", "1.0.0.1"]);
 
 const productRoutes = require("./routes/productRoutes");
+const authRoutes = require("./routes/authRoutes");
+
 require("dotenv").config();
 
 const express = require("express");
@@ -28,6 +30,7 @@ app.get("/about", (req, res) => {
 
 
 app.use("/products", productRoutes);
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
