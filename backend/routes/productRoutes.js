@@ -10,7 +10,11 @@ const {
     deleteProduct,
 } = require("../controllers/productController");
 
-router.get("/", getProducts);
+router.get(
+    "/",
+    protect,
+    getProducts);
+
 router.post("/", createProduct);
 router.get("/:id", getProductById);
 router.put("/:id", updateProduct);
