@@ -9,6 +9,7 @@ import {
 
 type AuthContextType = {
     token: string | null;
+    loading: boolean;
     login: (token: string) => void;
     logout: () => void;
 };
@@ -23,22 +24,21 @@ export function AuthProvider({
     children: React.ReactNode;
 }) {
 
-    const [token, setToken] =
-        useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(null);
+
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
-
-        const storedToken =
-            localStorage.getItem("token");
+        const storedToken = localStorage.getItem("token");
 
         if (storedToken) {
-
             setToken(storedToken);
-
         }
 
+        setLoading(false);
     }, []);
+
 
     const login = (token: string) => {
 
@@ -63,6 +63,7 @@ export function AuthProvider({
         <AuthContext.Provider
             value={{
                 token,
+                loading,
                 login,
                 logout,
             }}

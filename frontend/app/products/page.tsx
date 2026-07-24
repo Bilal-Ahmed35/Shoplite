@@ -15,14 +15,16 @@ export default function ProductsPage() {
     const [error, setError] = useState("");
 
     const router = useRouter();
-    const { token } = useAuth();
+    const { token, loading } = useAuth();
 
     // Redirect if user is not logged in
     useEffect(() => {
+        if (loading) return;
+
         if (!token) {
             router.push("/login");
         }
-    }, [token, router]);
+    }, [loading, token, router]);
 
     // Fetch products
     useEffect(() => {
