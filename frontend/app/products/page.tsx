@@ -1,0 +1,71 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type Product = {
+    _id: string;
+    name: string;
+    price: number;
+};
+
+export default function ProductsPage() {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const response = await fetch("http://localhost:5000/products", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || "Failed to fetch products");
+                }
+
+                const data = await response.json();
+                setProducts(data);
+            } catch (err: any) {
+                setError(err.message);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    if (error) {
+        return (
+            <main className="p-10">
+                <h1 className="text-red-600 font-bold">{error}</h1>
+            </main>
+        );
+    }
+
+    return (
+        <main className="p-10">
+            <h1 className="mb-6 text-4xl font-bold">
+                Products
+            </h1>
+
+            <div className="space-y-4">
+                {products.map((product) => (
+                    <div
+                        key={product._id}
+                        className="rounded border p-4"
+                    >
+                        <h2 className="text-xl font-bold">
+                            {product.name}
+                        </h2>
+
+                        <p>${product.price}</p>
+                    </div>
+                ))}
+            </div>
+        </main>
+    );
+}
