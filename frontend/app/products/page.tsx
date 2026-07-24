@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 type Product = {
     _id: string;
@@ -12,20 +14,36 @@ export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [error, setError] = useState("");
 
+    const router = useRouter();
+    const { token } = useAuth();
+
+    // Redirect if user is not logged in
     useEffect(() => {
+        if (!token) {
+            router.push("/login");
+        }
+    }, [token, router]);
+
+    // Fetch products
+    useEffect(() => {
+        if (!token) return;
+
         const fetchProducts = async () => {
             try {
-                const token = localStorage.getItem("token");
-
-                const response = await fetch("http://localhost:5000/products", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await fetch(
+                    "http://localhost:5000/products",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.message || "Failed to fetch products");
+                    throw new Error(
+                        errorData.message || "Failed to fetch products"
+                    );
                 }
 
                 const data = await response.json();
@@ -36,12 +54,14 @@ export default function ProductsPage() {
         };
 
         fetchProducts();
-    }, []);
+    }, [token]);
 
     if (error) {
         return (
             <main className="p-10">
-                <h1 className="text-red-600 font-bold">{error}</h1>
+                <h1 className="text-red-600 font-bold">
+                    {error}
+                </h1>
             </main>
         );
     }
