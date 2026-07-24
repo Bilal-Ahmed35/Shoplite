@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
 
@@ -11,7 +12,9 @@ export default function LoginPage() {
 
     const [password, setPassword] = useState("");
 
-    const login = async () => {
+    const { login } = useAuth();
+
+    const handleLogin = async () => {
 
         const response = await fetch(
             "http://localhost:5000/api/auth/login",
@@ -33,10 +36,8 @@ export default function LoginPage() {
 
         if (data.token) {
 
-            localStorage.setItem(
-                "token",
-                data.token
-            );
+
+            login(data.token);
 
             router.push("/home");
 
@@ -68,7 +69,7 @@ export default function LoginPage() {
             />
 
             <button
-                onClick={login}
+                onClick={handleLogin}
                 className="bg-blue-600 text-white px-4 py-2 rounded"
             >
                 Login
