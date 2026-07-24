@@ -17,6 +17,7 @@ export default function ProductsPage() {
     const router = useRouter();
     const { token, loading } = useAuth();
 
+
     // Redirect if user is not logged in
     useEffect(() => {
         if (loading) return;
@@ -29,6 +30,8 @@ export default function ProductsPage() {
     // Fetch products
     useEffect(() => {
         if (!token) return;
+
+
 
         const fetchProducts = async () => {
             try {
@@ -68,6 +71,9 @@ export default function ProductsPage() {
         );
     }
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
     return (
         <main className="p-10">
             <h1 className="mb-6 text-4xl font-bold">

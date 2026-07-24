@@ -5,10 +5,12 @@ const router = express.Router();
 const {
     registerUser,
     loginUser,
+    getCurrentUser,
 } = require("../controllers/authController");
 
 const protect = require("../middleware/authMiddleware");
 
+router.get("/me", protect, getCurrentUser);
 
 router.post("/register", registerUser);
 
