@@ -97,3 +97,25 @@ export default function ProductsPage() {
         </main>
     );
 }
+
+
+
+
+// import AddToCartButton from "@/components/AddToCartButton";
+
+// export default async function ProductsPage() {
+//   const res = await fetch("http://localhost:5000/products");
+//   const products = await res.json();
+
+//   return (
+//     <main>
+//       {products.map((product: any) => (
+//         <div key={product._id}>
+//           <h2>{product.name}</h2>
+
+//           <AddToCartButton id={product._id} />
+//         </div>
+//       ))}
+//     </main>
+//   );
+// }
