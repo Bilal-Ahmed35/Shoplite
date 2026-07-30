@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import AddToCartButton from "@/components/AddToCartButton";
 
 type Product = {
     _id: string;
@@ -79,6 +81,12 @@ export default function ProductsPage() {
     }
     return (
         <main className="p-10">
+            <Link
+                href="/products/add"
+                className="mb-6 inline-block rounded bg-blue-600 px-4 py-2 text-white"
+            >
+                Add Product
+            </Link>
             <h1 className="mb-6 text-4xl font-bold">
                 Products
             </h1>
@@ -99,6 +107,7 @@ export default function ProductsPage() {
                         </h2>
 
                         <p>${product.price}</p>
+                        <AddToCartButton id={product._id} />
                     </div>
                 ))}
             </div>

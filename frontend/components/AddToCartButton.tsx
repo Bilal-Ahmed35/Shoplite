@@ -8,7 +8,7 @@ export default function AddToCartButton({
     return (
         <button
             onClick={() =>
-                console.log(id)
+                console.log("Add to cart", id)
             }
         >
             Add to Cart
