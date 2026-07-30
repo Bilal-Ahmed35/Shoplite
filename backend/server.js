@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const dns = require("dns");
 
 // Force Node.js to use Cloudflare DNS
@@ -6,7 +8,6 @@ dns.setServers(["1.1.1.1", "1.0.0.1"]);
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");

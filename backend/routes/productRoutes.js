@@ -12,7 +12,7 @@ const {
 } = require("../controllers/productController");
 
 const protect = require("../middleware/authMiddleware");
-
+const upload = require("../middleware/upload");
 
 router.get(
     "/",

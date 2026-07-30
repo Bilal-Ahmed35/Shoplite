@@ -8,6 +8,9 @@ type Product = {
     _id: string;
     name: string;
     price: number;
+    description: string;
+    stock: number;
+    image: string;
 };
 
 export default function ProductsPage() {
@@ -86,6 +89,11 @@ export default function ProductsPage() {
                         key={product._id}
                         className="rounded border p-4"
                     >
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-48 h-48 object-cover rounded"
+                        />
                         <h2 className="text-xl font-bold">
                             {product.name}
                         </h2>
