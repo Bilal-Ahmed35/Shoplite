@@ -70,7 +70,7 @@ export default function Footer() {
                         </h3>
 
                         <p className="text-sm">
-                            📧 bilal@example.com
+                            📧 bilalahmedshah35@gmail.com
                         </p>
 
                         <p className="mt-2 text-sm">
